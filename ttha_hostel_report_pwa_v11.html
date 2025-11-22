@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TTHA Hostel Report — PWA (v11)</title>
+<link rel="manifest" href="manifest_v11.json">
+<meta name="theme-color" content="#eef7ff">
+<style>
+  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#f8fcff,#eef7ff);} 
+  #installArea{position:fixed;top:14px;right:18px;z-index:999}
+  .install-btn{padding:8px 12px;border-radius:8px;background:linear-gradient(90deg,#0b6efd,#06b6d4);color:#fff;border:none;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="installArea"></div>
+
+<!-- Embedded full app UI (from your v9 file) -->
+<div id="appRoot">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>TTHA Hostel Report → WhatsApp (v9)</title>
+<style>
+:root{--bg:#f6fbff;--card:#fff;--muted:#516878;--accent:#0b6efd;--accent-2:#06b6d4}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:linear-gradient(180deg,#f8fcff,#eef7ff);color:#093145}
+.container{max-width:980px;margin:18px auto;padding:18px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.h1{font-size:20px;font-weight:800;color:#063855}
+.panel{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(7,29,50,0.06)}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:16px}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.label{font-size:13px;color:var(--muted);min-width:110px}
+.input,textarea{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(6,110,237,0.08);background:#fff;color:#093145;font-size:14px}
+.btn{padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700;color:white;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.ghost{background:transparent;border:1px solid rgba(6,110,237,0.12);color:var(--accent);font-weight:600;padding:8px 10px;border-radius:10px}
+.preview{white-space:pre-wrap;font-family:monospace;background:#f0fbff;padding:12px;border-radius:10px;color:#04293a;border:1px solid rgba(6,110,237,0.06);max-height:420px;overflow:auto}
+.saved-list{max-height:260px;overflow:auto;margin-top:8px;border-radius:8px;padding:6px;background:#fff;border:1px solid rgba(6,110,237,0.06)}
+.saved-item{padding:8px;border-radius:8px;cursor:pointer}
+.saved-item:hover{background:rgba(6,110,237,0.04)}
+.selected{background:rgba(6,110,237,0.1);border-left:3px solid var(--accent)}
+.icon-btn{background:transparent;border:1px solid rgba(6,110,237,0.12);padding:6px 8px;border-radius:8px;color:var(--muted);cursor:pointer}
+.small{font-size:13px;color:var(--muted)}
+.kv{font-weight:700;color:#0b6efd}
+.notice{background:#eef9ff;padding:8px;border-radius:8px;color:var(--muted);font-size:13px;margin-bottom:8px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div>
+      <div class="h1">TTHA Hostel Visit — Report → WhatsApp</div>
+      <div class="small">v9 — Food times & details fixed in report</div>
+    </div>
+    <div style="text-align:right">
+      <div class="small">Prepared by</div>
+      <div class="kv">Chidambaram V</div>
+      <div class="small">Technical Trainer II</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <div class="notice">Fill and Save. After adding food items click <strong>Generate</strong> to include them in preview.</div>
+
+      <div class="row"><div class="label">Place</div><input id="place" class="input" value="Romaa Palace"></div>
+      <div class="row"><div class="label">Date</div><input id="date" type="date" class="input"></div>
+      <div class="row"><div class="label">Reached</div><div style="display:flex;gap:8px"><label><input id="reachedChk" type="checkbox"> Auto</label><input id="reachedTime" class="input"></div></div>
+      <div class="row"><div class="label">Out Time</div><div style="display:flex;gap:8px"><label><input id="outChk" type="checkbox"> Auto</label><input id="outTime" class="input"></div></div>
+      <div class="row"><div class="label">Sports Time</div><input id="sportsTime" class="input" value="6:00 PM to 7:00 PM"></div>
+      <div class="row"><div class="label">Study Time</div><input id="studyTime" class="input" value="7:00 PM to 8:15 PM"></div>
+
+      <hr>
+      <div class="row"><div class="label">Wing 1</div><label><input name="w1type" type="radio" value="indoor" checked> Indoor</label><label><input name="w1type" type="radio" value="outdoor"> Outdoor</label></div>
+      <div class="row"><div class="label">Wing 2</div><label><input name="w2type" type="radio" value="indoor" checked> Indoor</label><label><input name="w2type" type="radio" value="outdoor"> Outdoor</label></div>
+
+      <hr>
+      <div class="row"><div class="label">W1 I Yr</div><input id="w1_i_room" class="input"></div>
+      <div class="row"><div class="label">W1 II Yr</div><input id="w1_ii_room" class="input"></div>
+      <div class="row"><div class="label">W2 I Yr</div><input id="w2_i_room" class="input"></div>
+      <div class="row"><div class="label">W2 II Yr</div><input id="w2_ii_room" class="input"></div>
+
+      <hr>
+      <div class="row"><div class="label">I Yr Subjects</div><div id="iy_subjects" style="flex:1"><label><input type="checkbox" value="English">English</label> <label><input type="checkbox" value="Physics">Physics</label> <label><input type="checkbox" value="Maths">Maths</label> <label><input type="checkbox" value="Chemistry">Chemistry</label> <label><input type="checkbox" value="Drawing">Drawing</label></div></div>
+      <div class="row"><div class="label">I Yr Actions</div><div id="iy_actions" style="flex:1"><label><input type="checkbox" value="Homework">Homework</label> <label><input type="checkbox" value="Hometest">Hometest</label> <label><input type="checkbox" value="Study">Study</label></div></div>
+
+      <div class="row"><div class="label">II Yr Subjects</div><div id="iiy_subjects" style="flex:1"><label><input type="checkbox" value="EM">EM</label> <label><input type="checkbox" value="MT">MT</label> <label><input type="checkbox" value="MM">MM</label> <label><input type="checkbox" value="ADE">ADE</label> <label><input type="checkbox" value="CAD">CAD</label></div></div>
+      <div class="row"><div class="label">II Yr Actions</div><div id="iiy_actions" style="flex:1"><label><input type="checkbox" value="Homework">Homework</label> <label><input type="checkbox" value="Hometest">Hometest</label> <label><input type="checkbox" value="Study">Study</label></div></div>
+
+      <hr>
+      <div class="row"><div class="label">Food W1 Time</div><input id="food1_time" class="input" placeholder="7:15 PM"></div>
+      <div id="food1List" class="saved-list"></div>
+      <div class="row"><input id="food1_item" class="input" placeholder="Item e.g. White Rice"><input id="food1_qty" class="input" placeholder="Qty optional"><label><input id="food1_short" type="checkbox">Short</label><button id="addFood1" class="ghost">Add</button></div>
+
+      <div class="row"><div class="label">Food W2 Time</div><input id="food2_time" class="input" placeholder="7:15 PM"></div>
+      <div id="food2List" class="saved-list"></div>
+      <div class="row"><input id="food2_item" class="input" placeholder="Item e.g. White Rice"><input id="food2_qty" class="input" placeholder="Qty optional"><label><input id="food2_short" type="checkbox">Short</label><button id="addFood2" class="ghost">Add</button></div>
+
+      <hr>
+      <div class="row"><div class="label">Maintenance</div><textarea id="maintenance" class="input"></textarea></div>
+      <div class="row"><div class="label">Discipline</div><textarea id="discipline" class="input"></textarea></div>
+
+      <div class="row" style="margin-top:12px">
+        <button id="save" class="btn">Save</button>
+        <button id="gen" class="btn">Generate</button>
+        <button id="copy" class="ghost">Copy</button>
+        <button id="wa" class="btn">Open WA</button>
+        <button id="clear" class="ghost">Clear</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <strong>Saved Reports</strong>
+        <div class="small">Click → Load / Delete</div>
+        <div id="savedList" class="saved-list"></div>
+        <div class="row"><button id="loadBtn" class="ghost">Load</button><button id="delBtn" class="ghost">Delete</button></div>
+      </div>
+
+      <div class="panel" style="margin-top:12px">
+        <div class="small">Preview</div>
+        <div id="preview" class="preview"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const q = id => document.getElementById(id)
+const nl = s => s? String(s).trim(): ''
+q('date').value = new Date().toISOString().slice(0,10)
+
+let food1 = [], food2 = [], selectedKey = null
+
+function loadAll(){ try{ return JSON.parse(localStorage.getItem('ttha_v9')||'{}') }catch{ return {} } }
+function saveAll(obj){ localStorage.setItem('ttha_v9', JSON.stringify(obj)) }
+function formatDD(iso){ if(!iso) return ''; const p = iso.split('-'); return p[2]+'-'+p[1]+'-'+p[0] }
+
+function renderSaved(){ const el = q('savedList'); el.innerHTML=''; const keys = Object.keys(loadAll()).sort().reverse(); if(keys.length===0){ el.innerHTML='<div class="small">No saved reports</div>'; return } keys.forEach(k=>{ const d = document.createElement('div'); d.className='saved-item'; d.textContent = formatDD(k); d.onclick = ()=>{ selectedKey = k; highlight() }; el.appendChild(d) }) }
+function highlight(){ Array.from(document.querySelectorAll('.saved-item')).forEach(si=> si.classList.toggle('selected', si.textContent === formatDD(selectedKey)) ) }
+
+function renderFood(){ const f1 = q('food1List'); f1.innerHTML=''; food1.forEach((it,i)=>{ const r = document.createElement('div'); r.className='saved-item'; r.innerHTML = `<div><strong>${it.item}</strong>${it.qty? ' — '+it.qty: ''}${it.short? ' (Short)':''}</div>`; const del = document.createElement('button'); del.className='icon-btn'; del.textContent='Del'; del.onclick=()=>{ food1.splice(i,1); renderFood() }; r.appendChild(del); f1.appendChild(r) }); const f2 = q('food2List'); f2.innerHTML=''; food2.forEach((it,i)=>{ const r = document.createElement('div'); r.className='saved-item'; r.innerHTML = `<div><strong>${it.item}</strong>${it.qty? ' — '+it.qty: ''}${it.short? ' (Short)':''}</div>`; const del = document.createElement('button'); del.className='icon-btn'; del.textContent='Del'; del.onclick=()=>{ food2.splice(i,1); renderFood() }; r.appendChild(del); f2.appendChild(r) }) }
+
+q('addFood1').onclick = ()=>{ const item = nl(q('food1_item').value); if(!item) return alert('Enter item'); food1.push({item, qty:nl(q('food1_qty').value), short:q('food1_short').checked}); q('food1_item').value=''; q('food1_qty').value=''; q('food1_short').checked=false; renderFood() }
+q('addFood2').onclick = ()=>{ const item = nl(q('food2_item').value); if(!item) return alert('Enter item'); food2.push({item, qty:nl(q('food2_qty').value), short:q('food2_short').checked}); q('food2_item').value=''; q('food2_qty').value=''; q('food2_short').checked=false; renderFood() }
+
+q('reachedChk').onchange = ()=>{ if(q('reachedChk').checked) q('reachedTime').value = now() }
+q('outChk').onchange = ()=>{ if(q('outChk').checked) q('outTime').value = now() }
+function now(){ const d = new Date(); const h=d.getHours(), m=String(d.getMinutes()).padStart(2,'0'), ampm=h>=12?'PM':'AM', hh=((h+11)%12)+1; return `${hh}:${m} ${ampm}` }
+
+function gather(id){ const el = q(id); return el? Array.from(el.querySelectorAll('input[type=checkbox]:checked')).map(x=>x.value) : [] }
+function collect(){ return {
+  place: nl(q('place').value), date: nl(q('date').value),
+  reached: nl(q('reachedTime').value), out: nl(q('outTime').value),
+  sports: nl(q('sportsTime').value), study: nl(q('studyTime').value),
+  w1: document.querySelector('input[name=w1type]:checked').value, w2: document.querySelector('input[name=w2type]:checked').value,
+  w1i: nl(q('w1_i_room').value), w1ii: nl(q('w1_ii_room').value), w2i: nl(q('w2_i_room').value), w2ii: nl(q('w2_ii_room').value),
+  iy: gather('iy_subjects'), iya: gather('iy_actions'), iiy: gather('iiy_subjects'), iiya: gather('iiy_actions'),
+  f1time: nl(q('food1_time').value), f2time: nl(q('food2_time').value), food1: food1.slice(), food2: food2.slice(),
+  main: nl(q('maintenance').value), disc: nl(q('discipline').value)
+} }
+
+q('save').onclick = ()=>{ const d=collect(); if(!d.date) return alert('Select date'); const all = loadAll(); all[d.date]=d; saveAll(all); renderSaved(); alert('Saved') }
+q('loadBtn').onclick = ()=>{ if(!selectedKey) return alert('Select saved'); const all = loadAll(); const d = all[selectedKey]; if(!d) return alert('Not found'); load(d); alert('Loaded') }
+q('delBtn').onclick = ()=>{ if(!selectedKey) return alert('Select saved'); if(!confirm('Delete saved report?')) return; const all = loadAll(); delete all[selectedKey]; saveAll(all); selectedKey=null; renderSaved(); q('preview').textContent=''; alert('Deleted') }
+
+function load(d){
+  q('place').value = d.place || 'Romaa Palace'; q('date').value = d.date || new Date().toISOString().slice(0,10)
+  q('reachedTime').value = d.reached || ''; q('outTime').value = d.out || ''
+  q('sportsTime').value = d.sports || '6:00 PM to 7:00 PM'; q('studyTime').value = d.study || '7:00 PM to 8:15 PM'
+  if(d.w1) document.querySelector(`input[name=w1type][value='${d.w1}']`).checked = true
+  if(d.w2) document.querySelector(`input[name=w2type][value='${d.w2}']`).checked = true
+  q('w1_i_room').value = d.w1i || ''; q('w1_ii_room').value = d.w1ii || ''
+  q('w2_i_room').value = d.w2i || ''; q('w2_ii_room').value = d.w2ii || ''
+  setChecks('iy_subjects', d.iy || []); setChecks('iy_actions', d.iya || []); setChecks('iiy_subjects', d.iiy || []); setChecks('iiy_actions', d.iiya || [])
+  food1 = Array.isArray(d.food1)? d.food1.slice() : []; food2 = Array.isArray(d.food2)? d.food2.slice() : []
+  q('food1_time').value = d.f1time || ''; q('food2_time').value = d.f2time || ''
+  renderFood(); q('maintenance').value = d.main || ''; q('discipline').value = d.disc || ''
+  generate()
+}
+function setChecks(id, arr){ const el = q(id); if(!el) return; el.querySelectorAll('input[type=checkbox]').forEach(ch=> ch.checked = arr.includes(ch.value)) }
+
+function generate(){
+  const d = collect(); const L = []
+  L.push(`*PLACE :* ${d.place||'—'}`); L.push(''); L.push(`*DATE :* ${d.date? formatDD(d.date): '—'}`); L.push('')
+  if(d.reached) L.push(`*Reached @* ${d.reached}`); else L.push(`*Reached @* —`); L.push('')
+  // include sports/study and wings
+  L.push(`*Sports Time :* ${d.sports||'—'}`); L.push(''); L.push(`*Wing 1 Students:* ${d.w1==='indoor'?'Indoor (Carrom, Chess)':'Outdoor (Cricket, Badminton)'}`); L.push(`*Wing 2 Students:* ${d.w2==='indoor'?'Indoor (Carrom, Chess)':'Outdoor (Cricket, Badminton)'}`)
+  L.push(''); L.push(`*Study Time:* ${d.study||'—'}`); L.push('')
+  // wing1
+  L.push('*Wing 1 :*'); L.push(` I Year — Room ${d.w1i||'—'}`); if(d.iy && d.iy.length) L.push(`    Subjects: ${d.iy.join(', ')}`); if(d.iya && d.iya.length) L.push(`    Actions: ${d.iya.join(', ')}`)
+  L.push(` II Year — Room ${d.w1ii||'—'}`); if(d.iiy && d.iiy.length) L.push(`    Subjects: ${d.iiy.join(', ')}`); if(d.iiya && d.iiya.length) L.push(`    Actions: ${d.iiya.join(', ')}`)
+  L.push('')
+  // wing2
+  L.push('*Wing 2 :*'); L.push(` I Year — Room ${d.w2i||'—'}`); if(d.iy && d.iy.length) L.push(`    Subjects: ${d.iy.join(', ')}`); if(d.iya && d.iya.length) L.push(`    Actions: ${d.iya.join(', ')}`)
+  L.push(` II Year — Room ${d.w2ii||'—'}`); if(d.iiy && d.iiy.length) L.push(`    Subjects: ${d.iiy.join(', ')}`); if(d.iiya && d.iiya.length) L.push(`    Actions: ${d.iiya.join(', ')}`)
+  L.push('')
+  // Food wing1: always include header even if no items, to show time
+  L.push(`*Food Received — Wing 1* (Time: ${d.f1time || '—'})`)
+  if(d.food1 && d.food1.length){
+    d.food1.forEach(fi=>{ const qty = fi.qty? ' — '+fi.qty : ''; const sh = fi.short? ' (Short)' : ''; L.push(`  - ${fi.item}${qty}${sh}`) })
+  } else {
+    L.push('  - None')
+  }
+  L.push('')
+  // Food wing2
+  L.push(`*Food Received — Wing 2* (Time: ${d.f2time || '—'})`)
+  if(d.food2 && d.food2.length){
+    d.food2.forEach(fi=>{ const qty = fi.qty? ' — '+fi.qty : ''; const sh = fi.short? ' (Short)' : ''; L.push(`  - ${fi.item}${qty}${sh}`) })
+  } else {
+    L.push('  - None')
+  }
+  L.push('')
+  // maintenance & discipline
+  L.push('*Maintenance Issues:*'); L.push('  - ' + (d.main || 'Nil')); L.push(''); L.push('*Discipline Issues:*'); L.push('  - ' + (d.disc || 'Nil')); L.push('')
+  // Out time moved to end before prepared by
+  L.push(`*Out @* ${d.out || '—'}`); L.push('')
+  L.push('*Prepared by:* Chidambaram V'); L.push('Technical Trainer II')
+  const msg = L.join('\n').replace(/\n{2,}/g,'\n\n').trim()
+  q('preview').textContent = msg
+  return msg
+}
+
+q('gen').onclick = ()=>{ generate(); alert('Preview updated') }
+q('copy').onclick = ()=>{ const txt = generate(); navigator.clipboard.writeText(txt).then(()=>alert('Copied to clipboard'), ()=>alert('Copy failed')) }
+q('wa').onclick = ()=>{ const txt = generate(); window.open('https://wa.me/?text='+encodeURIComponent(txt), '_blank') }
+q('clear').onclick = ()=>{ if(confirm('Clear all?')) location.reload() }
+
+q('loadBtn').onclick = ()=>{ if(!selectedKey) return alert('Select saved'); const all = loadAll(); const d = all[selectedKey]; if(!d) return alert('Not found'); load(d); alert('Loaded') }
+q('delBtn').onclick = ()=>{ if(!selectedKey) return alert('Select saved'); if(!confirm('Delete saved report?')) return; const all = loadAll(); delete all[selectedKey]; saveAll(all); selectedKey=null; renderSaved(); q('preview').textContent=''; alert('Deleted') }
+
+function load(d){
+  q('place').value = d.place || 'Romaa Palace'; q('date').value = d.date || new Date().toISOString().slice(0,10)
+  q('reachedTime').value = d.reached || ''; q('outTime').value = d.out || ''
+  q('sportsTime').value = d.sports || '6:00 PM to 7:00 PM'; q('studyTime').value = d.study || '7:00 PM to 8:15 PM'
+  if(d.w1) document.querySelector(`input[name=w1type][value='${d.w1}']`).checked = true
+  if(d.w2) document.querySelector(`input[name=w2type][value='${d.w2}']`).checked = true
+  q('w1_i_room').value = d.w1i || ''; q('w1_ii_room').value = d.w1ii || ''
+  q('w2_i_room').value = d.w2i || ''; q('w2_ii_room').value = d.w2ii || ''
+  setChecks('iy_subjects', d.iy || []); setChecks('iy_actions', d.iya || []); setChecks('iiy_subjects', d.iiy || []); setChecks('iiy_actions', d.iiya || [])
+  food1 = Array.isArray(d.food1)? d.food1.slice() : []; food2 = Array.isArray(d.food2)? d.food2.slice() : []
+  q('food1_time').value = d.f1time || ''; q('food2_time').value = d.f2time || ''
+  renderFood(); q('maintenance').value = d.main || ''; q('discipline').value = d.disc || ''
+  generate()
+}
+
+function setChecks(id, arr){ const el = q(id); if(!el) return; el.querySelectorAll('input[type=checkbox]').forEach(ch=> ch.checked = arr.includes(ch.value)) }
+
+// initial render
+renderSaved(); renderFood()
+
+function renderSaved(){ const el = q('savedList'); el.innerHTML=''; const all = loadAll(); const keys = Object.keys(all).sort().reverse(); if(keys.length===0){ el.innerHTML='<div class="small">No saved reports</div>'; return } keys.forEach(k=>{ const d = document.createElement('div'); d.className='saved-item'; d.textContent = formatDD(k); d.onclick = ()=>{ selectedKey = k; highlight() }; el.appendChild(d) }) }
+function highlight(){ Array.from(document.querySelectorAll('.saved-item')).forEach(si=> si.classList.toggle('selected', si.textContent === formatDD(selectedKey)) ) }
+
+</script>
+</body>
+</html>
+
+</div>
+
+<script>
+// PWA install prompt handling (shows a small Install button when available)
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const area = document.getElementById('installArea');
+  if(area){ 
+    const btn = document.createElement('button');
+    btn.textContent = 'Install';
+    btn.className = 'install-btn';
+    btn.onclick = async () => {
+      btn.disabled = true;
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      btn.remove();
+    };
+    area.appendChild(btn);
+  }
+});
+
+// register service worker
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw_v11.js').then(()=> console.log('SW v11 registered')).catch(err=> console.warn('SW v11 failed', err));
+}
+</script>
+</body>
+</html>
